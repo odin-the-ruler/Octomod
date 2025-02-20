@@ -1,6 +1,10 @@
 .env
 *.session
+<<<<<<< HEAD
 *.session-journal
+=======
+octoplay.session-journal
+>>>>>>> master
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
