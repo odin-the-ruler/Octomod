@@ -1,5 +1,6 @@
 # OCTOMOD
 ![OCTOMOD](assets\logo\OCTOMOD.jpg)
+
 ## Installation
 
 To install the required dependencies, run the following command:
@@ -53,6 +54,16 @@ To host the project on a server, follow these steps:
 3. The bot will set the group and start listening for messages from the specified bot (`OctopusEN_Bot`).
 4. The bot will process the messages and respond with valid words based on the game rules.
 5. To stop the bot from playing in the group, send the `/end` command.
+
+## Cloning or Downloading the Project
+
+To clone the repository, use the following command:
+
+```bash
+git clone https://github.com/yourusername/Octomod.git
+```
+
+To download the project as a ZIP file, go to the GitHub repository page and click on the "Code" button, then select "Download ZIP".
 
 ## Project Status
 
