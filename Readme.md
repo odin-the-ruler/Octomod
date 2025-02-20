@@ -1,5 +1,5 @@
 # OCTOMOD
-![OCTOMOD](assets\logo\OCTOMOD.jpg)
+![OCTOMOD](/assets/logo/OCTOMOD.jpg)
 
 ## Installation
 
