@@ -24,7 +24,7 @@ API_HASH = "YOUR_API_HASH"
 To run the project locally, use the following command:
 
 ```bash
-python main.py
+python src/main.py
 ```
 
 ## Hosting on a Server
@@ -44,12 +44,28 @@ To host the project on a server, follow these steps:
 6. Run the project using a process manager like `screen`, `tmux`, or `systemd` to keep it running in the background:
 
     ```bash
-    python main.py
+    python src/main.py
     ```
+
+## Running on Replit
+
+To run the project on Replit, follow these steps:
+
+1. Fork the repository to your Replit account.
+2. Open the forked repository in Replit.
+3. Add the required environment variables (`API_ID` and `API_HASH`) in the Replit Secrets.
+4. Install the required dependencies by running the following command in the Replit shell:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5. Create a `.env` file in the root directory with your API credentials.
+6. Run the project by clicking the "Run" button in Replit.
 
 ## How to Use
 
-1. Start the bot by running the project locally or hosting it on a server.
+1. Start the bot by running the project locally, hosting it on a server, or running it on Replit.
 2. In the Telegram group where you want to play the game, send the `/play` command.
 3. The bot will set the group and start listening for messages from the specified bot (`OctopusEN_Bot`).
 4. The bot will process the messages and respond with valid words based on the game rules.
