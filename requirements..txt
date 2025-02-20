@@ -1,4 +1,0 @@
-asyncio
-nltk
-python-dotenv
-telethon
