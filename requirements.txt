@@ -1,4 +1,6 @@
-asyncio==3.4.3
-nltk==3.6.7
-python-dotenv==0.19.2
-telethon==1.24.0
+asyncio
+nltk
+python-dotenv
+telethon
+colorama
+art

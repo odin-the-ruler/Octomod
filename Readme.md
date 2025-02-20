@@ -76,7 +76,7 @@ To run the project on Replit, follow these steps:
 To clone the repository, use the following command:
 
 ```bash
-git clone https://github.com/yourusername/Octomod.git
+git clone git@github.com:odin-the-ruler/Octomod.git
 ```
 
 To download the project as a ZIP file, go to the GitHub repository page and click on the "Code" button, then select "Download ZIP".

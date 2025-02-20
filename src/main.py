@@ -3,11 +3,13 @@ import re
 import asyncio
 import os
 import sys
+import time
 from dotenv import load_dotenv
 from telethon import TelegramClient, events
 import nltk
 from nltk.corpus import words
 from utils import get_valid_words, format_string
+from startup import startup_banner, progress_bar, animated_loading
 
 # Configure stdout to handle UTF-8 encoding
 sys.stdout.reconfigure(encoding='utf-8')
@@ -105,6 +107,11 @@ async def main():
 
     print(f'Listening for messages from {bot_username}...')
     await client.run_until_disconnected()
+
+# Run the fancy startup sequence
+startup_banner()
+progress_bar()
+animated_loading()
 
 # Run the client
 with client:
