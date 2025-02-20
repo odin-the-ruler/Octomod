@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from telethon import TelegramClient, events
 import nltk
 from nltk.corpus import words
-from src.utils import get_valid_words, format_string
+from utils import get_valid_words, format_string
 
 # Configure stdout to handle UTF-8 encoding
 sys.stdout.reconfigure(encoding='utf-8')
