@@ -63,6 +63,8 @@ To run the project on Replit, follow these steps:
 5. Create a `.env` file in the root directory with your API credentials.
 6. Run the project by clicking the "Run" button in Replit.
 
+Alternatively, you can access the project on Replit by visiting the following link: [Octomod on Replit](https://replit.com/@darkiadev/Octomod?s=app)
+
 ## How to Use
 
 1. Start the bot by running the project locally, hosting it on a server, or running it on Replit.
