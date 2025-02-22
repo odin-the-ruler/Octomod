@@ -89,5 +89,5 @@ To download the project as a ZIP file, go to the GitHub repository page and clic
 
 ## Reminder
 
-Please ensure that you do not break Telegram's Terms of Service while using this project.
+Please ensure that you do not break Telegram's Terms of Service while using this project. Playing fast using the `/pf` command can lead to spam, which violates Telegram's Terms of Service. It is recommended to switch to the default `/pn` command to avoid issues.
 
