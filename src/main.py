@@ -10,6 +10,7 @@ import nltk
 from nltk.corpus import words
 from utils import get_valid_words, format_string
 from startup import startup_banner, progress_bar, animated_loading
+from telethon.errors import FloodWaitError
 
 # Configure stdout to handle UTF-8 encoding
 sys.stdout.reconfigure(encoding='utf-8')
@@ -49,10 +50,11 @@ async def send_welcome_message():
 
     Thank you for using Octomod. The bot is now up and running. You can use the following commands to interact with the bot:
 
-    - `/play` : Start the bot in a group.
-    - `/end` : Stop the bot from playing in the group.
-    - `/pf` : Play fast (no delay).
-    - `/pn` : Play normal (default delay).
+    - `.p` : Start the bot in a group.
+    - `.e` : Stop the bot from playing in the group.
+    - `.f` : Play fast (no delay).
+    - `.n` : Play normal (default delay).
+    - `.s` : Play slow (increased delay).
 
     If you have any questions or need assistance, feel free to reach out.
 
@@ -60,44 +62,65 @@ async def send_welcome_message():
     **Octomod Team**
     """)
 
+async def notify_user(message):
+    me = await client.get_me()
+    await client.send_message('me', message)
+
 async def main():
     await client.start()
     await send_welcome_message()
 
     # Event handler for the /play command to set the group
-    @client.on(events.NewMessage(pattern='/play', outgoing=True))
+    @client.on(events.NewMessage(pattern='.p', outgoing=True))
     async def set_group(event):
         global group_username
         try:
             group_username = event.chat_id
-            await event.reply(f'Octomod is now playing in {event.chat.title}')
+            print(f'Octomod is playing in {event.chat.title}')
+            await notify_user(f'Octomod is now playing in {event.chat.title}')
+            # await event.reply(f'Octomod is now playing in {event.chat.title}')
         except Exception as e:
             await event.reply(f'An error occurred: {e}')
 
     # Event handler for the /end command to stop the bot
-    @client.on(events.NewMessage(pattern='/end', outgoing=True))
+    @client.on(events.NewMessage(pattern='.e', outgoing=True))
     async def end_group(event):
         global group_username
         try:
             if group_username == event.chat_id:
                 group_username = None
+                print(f'/end command used in {event.chat.title}')
+                await notify_user(f'Octomod has stopped playing in {event.chat.title}')
                 await event.reply(f'Octomod has stopped playing in {event.chat.title}')
         except Exception as e:
             await event.reply(f'An error occurred: {e}')
 
     # Event handler for the /pf command to play fast
-    @client.on(events.NewMessage(pattern='/pf', outgoing=True))
+    @client.on(events.NewMessage(pattern='.f', outgoing=True))
     async def play_fast(event):
         global speed_mode
         speed_mode = "fast"
-        await event.reply('Octomod is now playing fast!')
+        print('Octomod playing in FAST speed')
+        await notify_user('Octomod is now playing fast!')
+        # await event.reply('Octomod is now playing fast!')
 
     # Event handler for the /pn command to play normal
-    @client.on(events.NewMessage(pattern='/pn', outgoing=True))
+    @client.on(events.NewMessage(pattern='.n', outgoing=True))
     async def play_normal(event):
         global speed_mode
         speed_mode = "normal"
-        await event.reply('Octomod is now playing at normal speed.')
+        print('Octomod playing in NORMAL speed')
+        await notify_user('Octomod is now playing at normal speed.')
+        # await event.reply('Octomod is now playing at normal speed.')
+
+    # Event handler for the /ps command to play slow
+    @client.on(events.NewMessage(pattern='.s', outgoing=True))
+    async def play_slow(event):
+        global speed_mode
+        speed_mode = "slow"
+        print('Octomod playing in SLOW speed')
+        await notify_user('Octomod is now playing slow!')
+        # await event.reply('Octomod is now playing slow!')
 
     # Event handler for new messages in the group
     @client.on(events.NewMessage)
@@ -108,6 +131,7 @@ async def main():
                 sender = await event.get_sender()
                 if sender and sender.username == bot_username:
                     # Extract only the string part of the message, excluding emojis
+                    print (event.message)
                     message_text = re.sub(r'[^\w\s,.!?]', '', event.message.message)
                     print(message_text)
                     second_last_line = message_text.split('\n')[-2].strip()
@@ -135,12 +159,29 @@ async def main():
                         print("Output:", result)
                         if speed_mode == "normal":
                             await asyncio.sleep(random.randint(4, 7))
+                        elif speed_mode == "slow":
+                            await asyncio.sleep(random.randint(10, 15))
                         for res in result:
-                            await client.send_message(group_username, res)
+                            try:
+                                await client.send_message(group_username, res)
+                            except FloodWaitError as e:
+                                print(f"Flood wait error: Sleeping for {e.seconds} seconds")
+                                await asyncio.sleep(e.seconds)
+                                # After flood wait, only respond to the most recent message
+                                new_message = await client.get_messages(group_username, limit=1)
+                                if new_message[0].id != event.message.id:
+                                    print("New message detected, ignoring previous responses.")
+                                    break
+                                await client.send_message(group_username, res)
                         # Check if the same question is still there
                         new_message = await client.get_messages(group_username, limit=1)
-                        new_message_text = re.sub(r'[^\w\s,.!?]', '', new_message[0].message)
-                        print(new_message_text)
+                        if new_message[0].id != event.message.id:
+                            print("New question detected, ignoring previous responses.")
+                            return
+                        print(new_message[0].message)
+        except FloodWaitError as e:
+            print(f"Flood wait error: Sleeping for {e.seconds} seconds")
+            await asyncio.sleep(e.seconds)
         except Exception as e:
             print(f"An error occurred in handler: {e}")
 

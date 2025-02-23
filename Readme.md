@@ -68,10 +68,11 @@ Alternatively, you can access the project on Replit by visiting the following li
 ## How to Use
 
 1. Start the bot by running the project locally, hosting it on a server, or running it on Replit.
-2. In the Telegram group where you want to play the game, send the `/play` command.
+2. In the Telegram group where you want to play the game, send the `.p` command.
 3. The bot will set the group and start listening for messages from the specified bot (`OctopusEN_Bot`).
 4. The bot will process the messages and respond with valid words based on the game rules.
-5. To stop the bot from playing in the group, send the `/end` command.
+5. To stop the bot from playing in the group, send the `.n` command.
+6. If you don't want to get flood errors and want to keep playing for a while, use the `.s` command to play slow. This will introduce a random gap of 10 to 15 seconds between responses.
 
 ## Cloning or Downloading the Project
 
@@ -89,5 +90,5 @@ To download the project as a ZIP file, go to the GitHub repository page and clic
 
 ## Reminder
 
-Please ensure that you do not break Telegram's Terms of Service while using this project. Playing fast using the `/pf` command can lead to spam, which violates Telegram's Terms of Service. It is recommended to switch to the default `/pn` command to avoid issues.
+Please ensure that you do not break Telegram's Terms of Service while using this project. Playing fast using the `/pf` command can lead to spam, which violates Telegram's Terms of Service. It is recommended to switch to the default `/pn` command to avoid issues. If you don't want to get flood errors and want to keep playing for a while, use the `.s` command to play slow. This will introduce a random gap of 10 to 15 seconds between responses.
 
