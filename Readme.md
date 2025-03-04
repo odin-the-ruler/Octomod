@@ -129,7 +129,7 @@ Here are the commands you can use to interact with Octomod:
 
 - **`/po`** – Start the octomod bot in a group.
 - **`/eo`** – Stop the octomod bot from playing in the group.
-- **`/t <time>`** – Set a custom delay (in seconds) between messages.
+- **`/time <time>`** – Set a custom delay (in seconds) between messages.
 ## How to Use
 
 1. Start the bot by running it locally, hosting it on a server, or running it on Replit/Termux.
