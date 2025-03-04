@@ -44,22 +44,20 @@ word_list = set(words.words())
 async def send_welcome_message():
     me = await client.get_me()
     await client.send_message('me', f"""
-    🎉 **Welcome to Octomod!** 🎉
+    🎉 **Welcome to Oct🎉 **Welcome to Octomod v1.2.0!** 🎉
 
     Hi {me.first_name},
 
-    Thank you for using Octomod. The bot is now up and running. You can use the following commands to interact with the bot:
+    Thank you for choosing Octomod! The bot is now active and ready to enhance your group experience. Below are the available commands to get started:
 
-    - `.p` : Start the bot in a group.
-    - `.e` : Stop the bot from playing in the group.
-    - `.f` : Play fast (no delay).
-    - `.n` : Play normal (default delay).
-    - `.s` : Play slow (increased delay).
+    - **`.p`** – Start the bot in a group.
+    - **`.e`** – Stop the bot from playing in the group.
+    - **`/t <time>`** – Set a custom delay (in seconds) between messages.
 
-    If you have any questions or need assistance, feel free to reach out.
+    If you need any assistance, feel free to reach out. We’re here to help!
 
-    Best regards,
-    **Octomod Team**
+    **Best regards,**  
+    _The Octomod Team_
     """)
 
 async def notify_user(message):
@@ -78,9 +76,9 @@ async def main():
             group_username = event.chat_id
             print(f'Octomod is playing in {event.chat.title}')
             await notify_user(f'Octomod is now playing in {event.chat.title}')
-            # await event.reply(f'Octomod is now playing in {event.chat.title}')
+            # await notify_user(f'Octomod is now playing in {event.chat.title}')
         except Exception as e:
-            await event.reply(f'An error occurred: {e}')
+            await event.send_message('me',f'An error occurred: {e}')
 
     # Event handler for the /end command to stop the bot
     @client.on(events.NewMessage(pattern='.e', outgoing=True))
@@ -91,9 +89,9 @@ async def main():
                 group_username = None
                 print(f'/end command used in {event.chat.title}')
                 await notify_user(f'Octomod has stopped playing in {event.chat.title}')
-                await event.reply(f'Octomod has stopped playing in {event.chat.title}')
+                await notify_user(f'Octomod has stopped playing in {event.chat.title}')
         except Exception as e:
-            await event.reply(f'An error occurred: {e}')
+            await notify_user(f'An error occurred: {e}')
 
     # Event handler for the /pf command to play fast
     @client.on(events.NewMessage(pattern='.f', outgoing=True))
@@ -102,7 +100,7 @@ async def main():
         speed_mode = "fast"
         print('Octomod playing in FAST speed')
         await notify_user('Octomod is now playing fast!')
-        # await event.reply('Octomod is now playing fast!')
+        # await notify_user('Octomod is now playing fast!')
 
     # Event handler for the /pn command to play normal
     @client.on(events.NewMessage(pattern='.n', outgoing=True))
@@ -111,7 +109,7 @@ async def main():
         speed_mode = "normal"
         print('Octomod playing in NORMAL speed')
         await notify_user('Octomod is now playing at normal speed.')
-        # await event.reply('Octomod is now playing at normal speed.')
+        # await notify_user('Octomod is now playing at normal speed.')
 
     # Event handler for the /ps command to play slow
     @client.on(events.NewMessage(pattern='.s', outgoing=True))
@@ -120,7 +118,7 @@ async def main():
         speed_mode = "slow"
         print('Octomod playing in SLOW speed')
         await notify_user('Octomod is now playing slow!')
-        # await event.reply('Octomod is now playing slow!')
+        # await notify_user('Octomod is now playing slow!')
 
     # Event handler for new messages in the group
     @client.on(events.NewMessage)
@@ -163,7 +161,8 @@ async def main():
                             await asyncio.sleep(random.randint(10, 15))
                         for res in result:
                             try:
-                                await client.send_message(group_username, res)
+                                async with client.action(group_username, "typing"):
+                                    await client.send_message(group_username, res)
                             except FloodWaitError as e:
                                 print(f"Flood wait error: Sleeping for {e.seconds} seconds")
                                 await asyncio.sleep(e.seconds)

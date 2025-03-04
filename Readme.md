@@ -1,5 +1,10 @@
 # OCTOMOD
+
 ![OCTOMOD](/assets/logo/OCTOMOD.jpg)
+
+## Introduction
+
+**Octomod** is a powerful Telegram bot designed to enhance group interactions with engaging word-based gameplay. Whether you're hosting it locally, on a server, or using a cloud-based service like Replit, Octomod ensures a seamless experience. This guide will help you set up and use Octomod efficiently.
 
 ## Installation
 
@@ -9,7 +14,7 @@ To install the required dependencies, run the following command:
 pip install -r requirements.txt
 ```
 
-## Example .env file
+## Example `.env` File
 
 Create a `.env` file in the root directory of your project with the following content:
 
@@ -21,7 +26,7 @@ API_HASH = "YOUR_API_HASH"
 
 ## Running Locally
 
-To run the project locally, use the following command:
+To run Octomod on your local machine, follow these steps:
 
 ```bash
 python src/main.py
@@ -29,19 +34,72 @@ python src/main.py
 
 ## Hosting on a Server
 
-To host the project on a server, follow these steps:
+To host Octomod on a remote server, follow these steps:
 
-1. Ensure you have Python and pip installed on your server.
-2. Clone the repository to your server.
-3. Navigate to the project directory.
-4. Install the required dependencies:
+1. Ensure Python and pip are installed on your server.
+2. Clone the repository:
+
+    ```bash
+    git clone git@github.com:odin-the-ruler/Octomod.git
+    ```
+
+3. Navigate to the project directory:
+
+    ```bash
+    cd Octomod
+    ```
+
+4. Install dependencies:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-5. Create a `.env` file in the root directory with your API credentials.
-6. Run the project using a process manager like `screen`, `tmux`, or `systemd` to keep it running in the background:
+5. Create a `.env` file with your API credentials.
+6. Run the bot using a process manager like `screen`, `tmux`, or `systemd` to keep it running:
+
+    ```bash
+    python src/main.py
+    ```
+
+## Running on Termux
+
+To run Octomod on Termux (Android terminal emulator):
+
+1. Install Termux from the Play Store or F-Droid.
+2. Update and install Python:
+
+    ```bash
+    pkg update && pkg upgrade
+    pkg install python git
+    ```
+
+3. Download the project ZIP file from GitHub:
+
+    ```bash
+    wget https://github.com/odin-the-ruler/Octomod/archive/refs/heads/main.zip
+    ```
+
+4. Extract the ZIP file:
+
+    ```bash
+    unzip main.zip && mv Octomod-main Octomod
+    ```
+
+5. Navigate to the project directory:
+
+    ```bash
+    cd Octomod
+    ```
+
+6. Install dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+7. Create a `.env` file with your API credentials.
+8. Start the bot:
 
     ```bash
     python src/main.py
@@ -49,46 +107,46 @@ To host the project on a server, follow these steps:
 
 ## Running on Replit
 
-To run the project on Replit, follow these steps:
+To run Octomod on Replit:
 
 1. Fork the repository to your Replit account.
 2. Open the forked repository in Replit.
 3. Add the required environment variables (`API_ID` and `API_HASH`) in the Replit Secrets.
-4. Install the required dependencies by running the following command in the Replit shell:
+4. Install dependencies in the Replit shell:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-5. Create a `.env` file in the root directory with your API credentials.
-6. Run the project by clicking the "Run" button in Replit.
+5. Create a `.env` file with your API credentials.
+6. Click the "Run" button in Replit to start the bot.
 
-Alternatively, you can access the project on Replit by visiting the following link: [Octomod on Replit](https://replit.com/@darkiadev/Octomod?s=app)
+Alternatively, access the project on Replit via this link: [Octomod on Replit](https://replit.com/@darkiadev/Octomod?s=app)
+
+## Available Commands
+
+Here are the commands you can use to interact with Octomod:
+
+- **`.p`** – Start the bot in a group.
+- **`.e`** – Stop the bot from playing in the group.
+- **`/t <time>`** – Set a custom delay (in seconds) between messages.
 
 ## How to Use
 
-1. Start the bot by running the project locally, hosting it on a server, or running it on Replit.
-2. In the Telegram group where you want to play the game, send the `.p` command.
-3. The bot will set the group and start listening for messages from the specified bot (`OctopusEN_Bot`).
-4. The bot will process the messages and respond with valid words based on the game rules.
-5. To stop the bot from playing in the group, send the `.n` command.
-6. If you don't want to get flood errors and want to keep playing for a while, use the `.s` command to play slow. This will introduce a random gap of 10 to 15 seconds between responses.
+1. Start the bot by running it locally, hosting it on a server, or running it on Replit/Termux.
+2. Add the bot to your Telegram group and ensure it has the necessary permissions.
+3. Send the `.p` command in the group to activate the bot.
+4. The bot will start monitoring and responding to messages based on the game rules.
+5. To stop the bot from playing, use the `.e` command.
+6. To control the speed of responses, use `/t <time>` to set a custom delay.
 
-## Cloning or Downloading the Project
+## Licensing
 
-To clone the repository, use the following command:
+This project is open-source and released under the MIT License. You are free to modify and distribute it under the terms of the license.
 
-```bash
-git clone git@github.com:odin-the-ruler/Octomod.git
-```
+## Contact & Support
 
-To download the project as a ZIP file, go to the GitHub repository page and click on the "Code" button, then select "Download ZIP".
+For any questions, feedback, or support, feel free to reach out via Telegram: [Contact Me](https://t.me/drecocox)
 
-## Project Status
-
-**This project is currently under development.** Some features may not be fully implemented or may change in the future. Contributions and feedback are welcome!
-
-## Reminder
-
-Please ensure that you do not break Telegram's Terms of Service while using this project. Playing fast using the `/pf` command can lead to spam, which violates Telegram's Terms of Service. It is recommended to switch to the default `/pn` command to avoid issues. If you don't want to get flood errors and want to keep playing for a while, use the `.s` command to play slow. This will introduce a random gap of 10 to 15 seconds between responses.
+We appreciate contributions and suggestions to improve Octomod! 🚀
 
