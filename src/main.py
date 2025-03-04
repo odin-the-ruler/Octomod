@@ -30,8 +30,7 @@ bot_username = 'OctopusEN_Bot'
 
 # Initialize group_username and speed_mode
 group_username = None
-speed_mode = "normal"
-
+custom_delay = 10
 # Create the Telegram client
 client = TelegramClient('octoplay', api_id, api_hash)
 
@@ -44,21 +43,17 @@ word_list = set(words.words())
 async def send_welcome_message():
     me = await client.get_me()
     await client.send_message('me', f"""
-    🎉 **Welcome to Oct🎉 **Welcome to Octomod v1.2.0!** 🎉
+    **🎉Welcome to Octomod v1.2.1!** 🎉
 
-    Hi {me.first_name},
+    Hi {me.first_name} 😊,
 
-    Thank you for choosing Octomod! The bot is now active and ready to enhance your group experience. Below are the available commands to get started:
+    Thank you for choosing Octomod! The octomod bot is now active and ready to enhance your game experience. Below are the available commands to get started:
 
-    - **`.p`** – Start the bot in a group.
-    - **`.e`** – Stop the bot from playing in the group.
-    - **`/t <time>`** – Set a custom delay (in seconds) between messages.
-
-    If you need any assistance, feel free to reach out. We’re here to help!
-
-    **Best regards,**  
-    _The Octomod Team_
+    - **`/po`** – Start the octomod bot in a group.
+    - **`/eo`** – Stop the octomod bot from playing in the group.
+    - **`/time <seconds>`** – Set a custom delay (in seconds) between messages.
     """)
+# Delete the /time command message
 
 async def notify_user(message):
     me = await client.get_me()
@@ -67,9 +62,24 @@ async def notify_user(message):
 async def main():
     await client.start()
     await send_welcome_message()
-
+    @client.on(events.NewMessage(pattern='/time (\d+)', outgoing=True))
+    async def set_custom_delay(event):
+        global custom_delay
+        delay_input = event.pattern_match.group(1).strip()
+        try:
+            custom_delay = int(delay_input)
+            async with client.action('me', 'typing'):
+                await asyncio.sleep(2)
+                await client.send_message(
+                'me', f"Custom delay set to {custom_delay} seconds.")
+        except ValueError:
+            async with client.action('me', 'typing'):
+                await asyncio.sleep(2)
+                await client.send_message(
+                    'me', "Invalid delay value. Please enter a valid number.")
+        await event.delete()  
     # Event handler for the /play command to set the group
-    @client.on(events.NewMessage(pattern='.p', outgoing=True))
+    @client.on(events.NewMessage(pattern='/po', outgoing=True))
     async def set_group(event):
         global group_username
         try:
@@ -81,7 +91,7 @@ async def main():
             await event.send_message('me',f'An error occurred: {e}')
 
     # Event handler for the /end command to stop the bot
-    @client.on(events.NewMessage(pattern='.e', outgoing=True))
+    @client.on(events.NewMessage(pattern='/eo', outgoing=True))
     async def end_group(event):
         global group_username
         try:
@@ -92,33 +102,6 @@ async def main():
                 await notify_user(f'Octomod has stopped playing in {event.chat.title}')
         except Exception as e:
             await notify_user(f'An error occurred: {e}')
-
-    # Event handler for the /pf command to play fast
-    @client.on(events.NewMessage(pattern='.f', outgoing=True))
-    async def play_fast(event):
-        global speed_mode
-        speed_mode = "fast"
-        print('Octomod playing in FAST speed')
-        await notify_user('Octomod is now playing fast!')
-        # await notify_user('Octomod is now playing fast!')
-
-    # Event handler for the /pn command to play normal
-    @client.on(events.NewMessage(pattern='.n', outgoing=True))
-    async def play_normal(event):
-        global speed_mode
-        speed_mode = "normal"
-        print('Octomod playing in NORMAL speed')
-        await notify_user('Octomod is now playing at normal speed.')
-        # await notify_user('Octomod is now playing at normal speed.')
-
-    # Event handler for the /ps command to play slow
-    @client.on(events.NewMessage(pattern='.s', outgoing=True))
-    async def play_slow(event):
-        global speed_mode
-        speed_mode = "slow"
-        print('Octomod playing in SLOW speed')
-        await notify_user('Octomod is now playing slow!')
-        # await notify_user('Octomod is now playing slow!')
 
     # Event handler for new messages in the group
     @client.on(events.NewMessage)
@@ -155,13 +138,10 @@ async def main():
                                     break
                     else:
                         print("Output:", result)
-                        if speed_mode == "normal":
-                            await asyncio.sleep(random.randint(4, 7))
-                        elif speed_mode == "slow":
-                            await asyncio.sleep(random.randint(10, 15))
                         for res in result:
                             try:
                                 async with client.action(group_username, "typing"):
+                                    await asyncio.sleep(custom_delay)
                                     await client.send_message(group_username, res)
                             except FloodWaitError as e:
                                 print(f"Flood wait error: Sleeping for {e.seconds} seconds")
