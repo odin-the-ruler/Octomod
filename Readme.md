@@ -137,7 +137,7 @@ Here are the commands you can use to interact with Octomod:
 3. Send the `/po` command in the group to activate the bot.
 4. The bot will start monitoring and responding to messages based on the game rules.
 5. To stop the bot from playing, use the `/eo` command.
-6. To control the speed of responses, use `/time <time>` to set a custom delay.
+6. To control the speed of responses, use `/time <seconds>` to set a custom delay.
 
 ## Licensing
 
