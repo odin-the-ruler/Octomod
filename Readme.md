@@ -133,11 +133,10 @@ Here are the commands you can use to interact with Octomod:
 ## How to Use
 
 1. Start the bot by running it locally, hosting it on a server, or running it on Replit/Termux.
-2. Add the bot to your Telegram group and ensure it has the necessary permissions.
-3. Send the `/po` command in the group to activate the bot.
-4. The bot will start monitoring and responding to messages based on the game rules.
-5. To stop the bot from playing, use the `/eo` command.
-6. To control the speed of responses, use `/time <seconds>` to set a custom delay.
+2. Send the `/po` command in the group to activate the bot.
+3. The bot will start monitoring and responding to messages based on the game rules.
+4. To stop the bot from playing, use the `/eo` command.
+5. To control the speed of responses, use `/time <seconds>` to set a custom delay.
 
 ## Licensing
 
